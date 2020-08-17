@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temperature Converter</title>
+    <title>Currency Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,8 +16,38 @@
         </div>
         <ul class="currencies"></ul>
         <ul class="currencyList"></ul>
+        <div class="visitors">
+          <h1>VISITORS</h1>
+          <form id="add-visitors-section">
+              <input type="text" name="name" placeholder="Name">
+              <input type="text" name="lastName" placeholder="Lastname">
+              <button>Add Name</button>
+
+          </form>
+          <ul id="visitors-list"></ul>
+        </div>
       </div>
     
-    <script src="main.js"></script>
+    
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCx2IyOlYstjxYzcpN2bRVRflhxZ4VCgnY",
+    authDomain: "fir-893a4.firebaseapp.com",
+    databaseURL: "https://fir-893a4.firebaseio.com",
+    projectId: "fir-893a4",
+    storageBucket: "fir-893a4.appspot.com",
+    messagingSenderId: "99070204662",
+    appId: "1:99070204662:web:fdd70dc03dbe382a946ad7",
+    measurementId: "G-TX3QMVE1QE"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+  
+</script>
+<script src="main.js"></script>
 </body>
 </html>

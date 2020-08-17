@@ -110,3 +110,76 @@ fetch("https://api.exchangeratesapi.io/latest")
   })
   .catch(err => console.log(err));
 
+
+
+  ////test
+
+if (true) {
+  let hello = 'say hello';
+  console.log(hello);
+}
+
+
+///visitors
+
+
+const visitorsList = document.querySelector('#visitors-list');
+const form = document.querySelector('#add-visitors-section');
+
+
+function renderVisitor(doc){
+  let h2 = document.createElement('h2');
+  let name = document.createElement('p');
+  let lastName = document.createElement('p');
+  let cross = document.createElement('div');
+
+
+  h2.setAttribute('data-id', doc.id);
+  name.textContent = doc.data().name;
+  lastName.textContent = doc.data().lastName;
+  cross.textContent= 'x';
+
+  h2.appendChild(name);
+  h2.appendChild(lastName);
+  h2.appendChild(cross);
+
+  visitorsList.appendChild(h2);
+
+
+  cross.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let id = e.target.parentElement.getAttribute('data-id');
+    db.collection('Comment').doc(id).delete();
+  })
+}
+
+
+
+
+
+
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  db.collection('Comment').add({
+      name: form.name.value,
+      lastName: form.lastName.value
+  });
+  form.name.value = '';
+  form.lastName.value = '';
+});
+
+
+db.collection('Comment').orderBy('lastName').onSnapshot(snapshot => {
+  let changes = snapshot.docChanges();
+  changes.forEach(change => {
+    if(change.type == 'added') {
+      renderVisitor(change.doc);
+    } else if (change.type == 'removed') {
+      let h2 = visitorsList.querySelector('[data-id=' + change.doc.id + ']');
+      visitorsList.removeChild(h2);
+    }
+    
+  })
+})
+
